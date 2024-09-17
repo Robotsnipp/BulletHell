@@ -19,6 +19,7 @@ if __name__ == '__main__':
 
     bullets = []
     ship = SpaceShip(screen)
+    ship.rect.center = (480, 270)
     endgame_phase = False
 
     fps = 100
