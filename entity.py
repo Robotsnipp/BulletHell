@@ -16,7 +16,7 @@ class SpaceShip(pygame.sprite.Sprite):
         self.screen = screen
         self.image = SpaceShip.image
         self.rect = self.image.get_rect()
-        self.health = 100
+        self.health = 3
         self.velocity = 3
         self.invisibility = 0
         self.color = pygame.Color((255, 255, 255))

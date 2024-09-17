@@ -12,6 +12,7 @@ if __name__ == '__main__':
     despawn_area = pygame.Rect(-100, -100, 1300, 1300)
 
     game_font = pygame.font.SysFont('Franklin Gothic', 70)
+    debugger_font = pygame.font.SysFont('Franklin Gothic', 20)
 
     taken_hit_tick = 0
     lifetime = 0
@@ -88,9 +89,11 @@ if __name__ == '__main__':
         # ---- UI MOMENT ----
         hp_text = game_font.render(str(ship.health), False, pygame.Color('red'))
         timer_text = game_font.render(str(lifetime), False, pygame.Color('red'))
+        entity_count_text = debugger_font.render(f"entity count: {len(bullets)}", False, pygame.Color("purple"))
 
         screen.blit(hp_text, (520, 10))
         screen.blit(timer_text, (400, 10))
+        screen.blit(entity_count_text, (10, 520))
         screen.blit(pygame.transform.scale(heart_image, (70, 70)), (460, -3))
 
         if endgame_phase and lifetime % 2 == 0:
