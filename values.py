@@ -1,0 +1,9 @@
+import pygame
+
+LASER_SPAWN = pygame.USEREVENT + 1
+DELETE_LASER = pygame.USEREVENT + 2
+BULLET_SPAWN = pygame.USEREVENT + 3
+STOMP_SPAWN = pygame.USEREVENT + 4
+LIFE_TIME = pygame.USEREVENT + 5
+LOSE = 0
+WIN = 1

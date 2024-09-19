@@ -1,11 +1,5 @@
-import pygame
 import random
-
-LASER_SPAWN = pygame.USEREVENT + 1
-DELETE_LASER = pygame.USEREVENT + 2
-BULLET_SPAWN = pygame.USEREVENT + 3
-STOMP_SPAWN = pygame.USEREVENT + 4
-LIFE_TIME = pygame.USEREVENT + 5
+from values import *
 
 
 class SpaceShip(pygame.sprite.Sprite):
@@ -47,7 +41,7 @@ class SpaceShip(pygame.sprite.Sprite):
         self.rect.clamp_ip(self.screen.get_rect())
 
     def take_damage(self, damage):
-        if damage:
+        if damage and self.health != 0:
             self.health -= damage
             self.invisibility = 1
 
@@ -70,6 +64,10 @@ class SpaceShip(pygame.sprite.Sprite):
 
         else:
             self.image.set_alpha(255)
+
+    def explode(self):
+        """взрыв после смерти"""
+        pass
 
 
 class Laser:

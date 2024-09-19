@@ -16,11 +16,12 @@ if __name__ == '__main__':
 
     taken_hit_tick = 0
     lifetime = 0
+    death_screen_time = 1.0 # seconds
 
     bullets = []
     ship = SpaceShip(screen)
     ship.rect.center = (480, 270)
-    endgame_phase = False
+    endgame_phase = None
 
     fps = 100
     running = True
@@ -63,7 +64,7 @@ if __name__ == '__main__':
                     bullets.append(Stomp(screen))
 
         # ---- BULLETS MOMENT ----
-        if not endgame_phase:
+        if endgame_phase not in [WIN, LOSE]:
             for i, bullet in enumerate(bullets[::-1]):
 
                 damage = bullet.damage_player(ship)
@@ -84,8 +85,8 @@ if __name__ == '__main__':
         ship.render()
 
         ship.invisibility -= 0.01
-        if ship.health <= 0:
-            sys.exit()
+        if ship.health == 0:
+            death_screen_time -= 0.01
 
         # ---- UI MOMENT ----
         hp_text = game_font.render(str(ship.health), False, pygame.Color('red'))
@@ -97,13 +98,20 @@ if __name__ == '__main__':
         screen.blit(entity_count_text, (10, 520))
         screen.blit(pygame.transform.scale(heart_image, (70, 70)), (460, -3))
 
-        if endgame_phase and lifetime % 2 == 0:
+        if endgame_phase == WIN:
             win_text = game_font.render('YOU HAVE WON', False, pygame.Color('red'))
             screen.blit(win_text, (275, 250))
 
+        if endgame_phase == LOSE:
+            sys.exit()
+
         # ---- ENDGAME PHASE ----
-        if lifetime >= 30:
-            endgame_phase = True
+        if endgame_phase is None:
+            if lifetime >= 30 and ship.health != 0:
+                endgame_phase = WIN
+
+            if ship.health == 0:
+                endgame_phase = LOSE
 
         # ---- FPS ----
         clock.tick(fps)
