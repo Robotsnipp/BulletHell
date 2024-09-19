@@ -98,13 +98,6 @@ if __name__ == '__main__':
         screen.blit(entity_count_text, (10, 520))
         screen.blit(pygame.transform.scale(heart_image, (70, 70)), (460, -3))
 
-        if endgame_phase == WIN:
-            win_text = game_font.render('YOU HAVE WON', False, pygame.Color('red'))
-            screen.blit(win_text, (275, 250))
-
-        if endgame_phase == LOSE:
-            sys.exit()
-
         # ---- ENDGAME PHASE ----
         if endgame_phase is None:
             if lifetime >= 30 and ship.health != 0:
@@ -112,6 +105,15 @@ if __name__ == '__main__':
 
             if ship.health == 0:
                 endgame_phase = LOSE
+
+        if endgame_phase == WIN:
+            bullets = []
+            win_text = game_font.render('YOU HAVE WON', False, pygame.Color('red'))
+            screen.blit(win_text, (275, 250))
+
+        if endgame_phase == LOSE:
+            bullets = []
+            sys.exit()
 
         # ---- FPS ----
         clock.tick(fps)
